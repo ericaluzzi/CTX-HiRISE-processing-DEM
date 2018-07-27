@@ -1,0 +1,64 @@
+#Level 0 → Level 1
+
+mroctx2isis  from=P01_001472_1747_XI_05S146W.img to=P01_001472_1747_XI_05S146W.cub
+
+spiceinit from=P01_001472_1747_XI_05S146W.cub
+
+ctxevenodd from=P01_001472_1747_XI_05S146W.cub to=P01_001472_1747_XI_05S146W.eo.cub
+
+ctxcal from=P01_001472_1747_XI_05S146W.eo.cub to=P01_001472_1747_XI_05S146W.cal.cub
+
+#Level 1 → Level 2
+# CREATE A MAP TEMPLATE SAME AS THE PROJ. OF YOUR PROJECT... e.g.
+
+ pico  map_template_eqc.map 
+
+ 
+
+# with inside:
+
+  Group = Mapping
+
+    ProjectionName     = EQUIRECTANGULAR
+
+    CenterLongitude    = 0.0
+
+    CenterLatitude     = 0.0
+
+    TargetName         = Mars
+
+    EquatorialRadius   = 3396190.0 <meters>
+
+    PolarRadius        = 3396190.0 <meters>
+
+    LatitudeType       = Planetocentric
+
+    LongitudeDirection = PositiveEast
+
+    LongitudeDomain    = 180
+
+  End_Group
+
+ 
+
+# THEN:
+
+cam2map from=P01_001472_1747_XI_05S146W.cal.cub to=P01_001472_1747_XI_05S146W.eqc.cub map=map_template.eqc
+
+ 
+
+# THEN:
+
+isis2std from=P01_001472_1747_XI_05S146W.eqc.cub to=P01_001472_1747_XI_05S146W.tif mode=grayscale format=tiff bittype=8bit stretch=linear minpercent=0.2 maxpercent=99.8
+
+ 
+
+#RUNNING WITH PARALLEL
+
+# set up parallel.sh
+
+#create a list of data files: 
+
+ls  *.img > data_list.txt
+
+./parallel.sh  data_list.txt
