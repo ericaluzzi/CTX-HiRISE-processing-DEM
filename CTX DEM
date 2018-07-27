@@ -1,0 +1,39 @@
+#Level 0 → Level 1
+#For each image
+mroctx2isis from=D06_029635_1693_XI_10S073W.img to=D06_029635_1693_XI_10S073W.cub
+spiceinit from=D06_029635_1693_XI_10S073W.cub
+ctxcal from=D06_029635_1693_XI_10S073W.cub to=D06_029635_1693_XI_10S073W.cal.cub
+ctxevenodd from=D06_029635_1693_XI_10S073W.cal.cub to=D06_029635_1693_XI_10S073W.eo.cub
+
+
+#Level 1 → Level 2
+#For each image
+cam2map from=D06_029635_1693_XI_10S073W.eo.cub map=map_template.eqc to=D06_029635_1693_XI_10S073W.map.cub
+
+
+#Bundle_adjust & Stereo
+bundle_adjust D06_029635_1693_XI_10S073W.map.cub G01_018598_1675_XN_12S073W.map.cub -o match_files/match
+ 
+stereo --threads=4 D06_029635_1693_XI_10S073W.map.cub G01_018598_1675_XN_12S073W.map.cub results_ba/D06_029635_1693_XI_10S073W-G01_018598_1675_XN_12S073W \
+--bundle-adjust-prefix match_files/match
+
+
+#DEM & alignment
+
+pc_align --max-displacement 200 H1927_0000_DT4.tif D06-PC.tif \
+        --save-transformed-source-points  -o D06_align/D06_align \
+ 
+ 
+point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units=m +no_defs" \
+        --nodata -32767 D06_align/D06_align.tif
+ 
+ 
+#OR - WITHOUT ALIGNMENT ->    
+point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units=m +no_defs" --nodata -32767 --dem-hole-fill-len 500 --orthoimage-hole-fill-len 500 --remove-outliers-params 75.0 3.0 --orthoimage D06_029635_1693_XI_10S073W-G01_018598_1675_XN_12S073W-L.tif  D06_029635_1693_XI_10S073W-G01_018598_1675_XN_12S073W-PC.tif -o ASP-D06_029635_1693_XI_10S073W
+
+#Hillshade & Colormap
+# hillshade
+hillshade b19_017211_2015_j01_045140_2015-DEM.tif
+
+# colormap
+colormap ASP-b19_017211_2015_j01_045140_2015-DEM.tif -s ASP-b19_017211_2015_j01_045140_2015-DEM_HILLSHADE.tif -o ASP-b19_017211_2015_j01_045140_2015-DEM_COLORSHADE.tif
