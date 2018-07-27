@@ -1,14 +1,25 @@
 #Download all the RED edr of each stereo pair
 
-hiedr2mosaic.py PSP_001513_1655_RED*.IMG
+hiedr2mosaic.py ESP_016963_1680_RED*.IMG
 
-hiedr2mosaic.py PSP_001777_1650_RED*.IMG
 
-cam2map4stereo.py PSP_001777_1650_RED.mos_hijitreged.norm.cub \ PSP_001513_1655_RED.mos_hijitreged.norm.cub
+hiedr2mosaic.py ESP_018598_1680_RED*.IMG
+
+
+cam2map4stereo.py ESP_016963_1680_RED.mos_hijitreged.norm.cub \ ESP_018598_1680_RED.mos_hijitreged.norm.cub
+
 
 #Set up the stereo.default file and then
 
-stereo PSP_001513_1655.map.cub \ PSP_001777_1650.map.cub result/output
+bundle_adjust ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub  -o match_files/match
+
+
+stereo --threads=4 ESP_016963_1680_RED.map.cub ESP_018598_1680.map.cub results_ba/ESP_016963_1680-ESP_018598_1680 \
+--bundle-adjust-prefix match_files/match
+
 
 point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units=m +no_defs" --nodata -32767 --dem-hole-fill-len 500 --orthoimage-hole-fill-len 500 --remove-outliers-params 75.0 3.0 --orthoimage
-PSP_001513_1655-PSP_001777_1650_RED-L.tif PSP_001513_1655-PSP_001777_1650_RED-PC.tif -o ASP-PSP_001513_1655-PSP_001777_1650_RED
+
+ESP_016963_1680-ESP_018598_1680_RED-L.tif ESP_016963_1680-ESP_018598_1680_RED-PC.tif -o ASP-ESP_016963_1680-ESP_018598_1680
+
+
