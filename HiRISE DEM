@@ -14,7 +14,7 @@ cam2map4stereo.py ESP_016963_1680_RED.mos_hijitreged.norm.cub \ ESP_018598_1680_
 bundle_adjust ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub  -o match_files/match
 
 
-stereo --threads=4 ESP_016963_1680_RED.map.cub ESP_018598_1680.map.cub results_ba/ESP_016963_1680-ESP_018598_1680 \
+stereo --threads=4 ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub results_ba/ESP_016963_1680-ESP_018598_1680 \
 --bundle-adjust-prefix match_files/match
 
 
