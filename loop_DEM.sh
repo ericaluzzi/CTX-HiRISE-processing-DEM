@@ -12,7 +12,7 @@ parallel ctxevenodd from={.}_L1cal.cub to={.}_L1.cub ::: $NAME
 
 parallel spiceinit from={.}_L1.cub ::: $NAME
 
-parallel cam2map from={.}_L1.cub to={.}_L2.cub map=mars_simp0.map ::: $NAME
+parallel cam2map from={.}_L1.cub to={.}_L2.cub map=map_template.eqc ::: $NAME
 
 gdal_translate "$NAME"_L2.cub "$NAME"_L2_simp0.tif
 
