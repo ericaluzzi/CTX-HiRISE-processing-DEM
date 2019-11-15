@@ -1,4 +1,15 @@
 gdalwarp -t_srs "+proj=eqc +lat_ts=00 +lat_0=0 +lon_0=0 +a=3396190 +b=3396190 +units=m +no_defs" bubu.IMG bubu.tif
 
+----------------------------
 
 gdal_translate -a_srs "+proj=eqc +lat_ts=00 +lat_0=0 +lon_0=0 +a=3396190 +b=3396190 +units=m +no_defs" bubu.cub bubu.tif
+
+-----------------------------
+
+camp2map from=bubu.cub map=map_template.eqc to=bubu.map.cub
+
+-----------------------------
+
+gdal_translate -of GTiff input_mapped.cub output.tif
+
+-----------------------------
