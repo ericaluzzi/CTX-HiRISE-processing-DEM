@@ -1,0 +1,8 @@
+# alias-isis3
+alias isis3="sudo docker run --rm -i -t -u isis3user -w /home/isis3user \
+-v /media/eluzzi/data1/isis3data:/home/isis3user/isis3data \
+-v /home/eluzzi/isis3/isis_ubuntu14.04:/home/isis3user/isis3 \
+-v /home/eluzzi/isis3/StereoPipeline-2.6.1-2018-09-06-x86_64-Linux:/home/isis3user/asp \
+-v /media/eluzzi/52E13FC2630387891:/home/isis3user/working_data \
+-e DISPLAY=10.70.2.27:0 \
+isis3ericabuttame:latest /bin/bash -l"
