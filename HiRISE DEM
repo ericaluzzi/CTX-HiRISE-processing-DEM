@@ -23,3 +23,6 @@ point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units
 ESP_016963_1680-ESP_018598_1680_RED-L.tif ESP_016963_1680-ESP_018598_1680_RED-PC.tif -o ASP-ESP_016963_1680-ESP_018598_1680
 
 
+pc_align --max-displacement 250 hirise-PC.tif MOLA.tif --highest-accuracy --save-inv-trans --initial-ned-translation '0 0 2500' -o adjusted_DEM
+
+
