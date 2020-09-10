@@ -25,4 +25,5 @@ ESP_016963_1680-ESP_018598_1680_RED-L.tif ESP_016963_1680-ESP_018598_1680_RED-PC
 
 pc_align --max-displacement 250 hirise-PC.tif MOLA.tif --highest-accuracy --save-inv-trans --initial-ned-translation '0 0 2500' -o adjusted_DEM
 
+pc_align --max-displacement 20000 --datum=MOLA results_ba/ESP_065356_1995-ESP_065422_1995-PC.tif ../Mars_MGS_MOLA_DEM_mosaic_global_463m1.tif --save-inv-trans -o ESP_065422-ESP_065356_1995-adjusted_DEM
 
