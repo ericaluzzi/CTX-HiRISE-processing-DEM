@@ -11,21 +11,18 @@ cam2map4stereo.py ESP_016963_1680_RED.mos_hijitreged.norm.cub \ ESP_018598_1680_
 
 #Set up the stereo.default file and then
 
-bundle_adjust ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub  -o match_files/match
+bundle_adjust ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub  -o ba/ba
 
 
-stereo --threads=4 ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub results_ba/ESP_016963_1680-ESP_018598_1680 \
---bundle-adjust-prefix match_files/match
+parallel_stereo ESP_016963_1680_RED.map.cub ESP_018598_1680_RED.map.cub stereo/ESP_016963_1680-ESP_018598_1680_RED \
+--bundle-adjust-prefix ba/ba
+
+
+pc_align --max-displacement 10000 --datum=MOLA stereo/ESP_016963_1680-ESP_018598_1680_RED-PC.tif crop-MOLA.tif --save-inv-trans -o ESP_016963_1680-ESP_018598_1680-aligned
 
 
 point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units=m +no_defs" --nodata -32767 --dem-hole-fill-len 500 --orthoimage-hole-fill-len 500 --remove-outliers-params 75.0 3.0 --orthoimage
 
-ESP_016963_1680-ESP_018598_1680_RED-L.tif ESP_016963_1680-ESP_018598_1680_RED-PC.tif -o ASP-ESP_016963_1680-ESP_018598_1680
+ESP_016963_1680-ESP_018598_1680_RED-L.tif ESP_016963_1680-ESP_018598_1680-aligned-trans_reference.tif -o ASP-ESP_016963_1680-ESP_018598_1680
 
-
-#for pc_align in some cases the fgr algorithm is recommended 
-
-pc_align --max-displacement 250 hirise-PC.tif MOLA.tif --highest-accuracy --save-inv-trans --initial-ned-translation '0 0 2500' -o adjusted_DEM
-
-pc_align --max-displacement 20000 --datum=MOLA results_ba/ESP_065356_1995-ESP_065422_1995-PC.tif ../Mars_MGS_MOLA_DEM_mosaic_global_463m1.tif --save-inv-trans -o ESP_065422-ESP_065356_1995-adjusted_DEM
 
