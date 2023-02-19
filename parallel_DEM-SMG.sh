@@ -57,7 +57,7 @@ pc_align --max-displacement 7000 --datum MOLA   \
 
 point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units=m +no_defs" \
    --nodata -32767 --dem-hole-fill-len 1000 --orthoimage-hole-fill-len 1000 --remove-outliers-params 75.0 3.0 \
-   --orthoimage results_ba/${RES_STEREO}-L.tif results_ba/run/run-trans_reference.tif \
+   --orthoimage results_ba/${RES_STEREO}-L.tif run/run-trans_reference.tif \
     -o ASP-adjusted-${RES_STEREO}
 
 
