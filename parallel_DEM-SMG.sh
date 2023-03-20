@@ -46,8 +46,12 @@ cam2map4stereo.py ${FILESL1[*]}
 RES_STEREO=$(printf "_%s" "${NAMES[@]}")
 RES_STEREO="${RES_STEREO:1}"
 
+bundle_adjust ${FILESL2[*]} \
+  -o ba/ba
+
 parallel_stereo ${FILESL2[*]} \
   results_ba/$RES_STEREO \
+  --bundle-adjust-prefix ba/ba
 
 pc_align --max-displacement 7000 --datum MOLA   \
   --highest-accuracy    \
