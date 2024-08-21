@@ -50,18 +50,18 @@ bundle_adjust ${FILESL2[*]} \
   -o ba/ba
 
 parallel_stereo ${FILESL2[*]} \
-  results_ba/$RES_STEREO \
+  results_stereo/$RES_STEREO \
   --bundle-adjust-prefix ba/ba
 
 pc_align --max-displacement 7000 --datum MOLA   \
   --highest-accuracy    \
   --save-transformed-source-points           \
   --save-inv-transformed-reference-points    \
-  results_ba/${RES_STEREO}-PC.tif crop3-mola.tif -o run/run   
+  results_stereo/${RES_STEREO}-PC.tif crop-mola.tif -o align/align   
 
 point2dem --t_srs "+proj=eqc +lat_0=0 +lon_0=0 +k=1 +a=3396190 +b=3396190 +units=m +no_defs" \
    --nodata -32767 --dem-hole-fill-len 1000 --orthoimage-hole-fill-len 1000 --remove-outliers-params 75.0 3.0 \
-   --orthoimage results_ba/${RES_STEREO}-L.tif run/run-trans_reference.tif \
+   --orthoimage results_stereo/${RES_STEREO}-L.tif align/align-trans_reference.tif \
     -o ASP-adjusted-${RES_STEREO}
 
 
