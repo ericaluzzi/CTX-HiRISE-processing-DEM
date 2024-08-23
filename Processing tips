@@ -2,7 +2,7 @@
 Processing tips
 =================================================================================================================
 
-0 To lower memory use during stereo, consider reducing the number of processes or lowering --corr-memory-limit-mb in stereo.default.
+0 To lower memory use during stereo, consider reducing the number of processes or lowering --corr-memory-limit-mb in stereo.default. (E.g. corr-memory-limit-mb 4096)
 0 
 
 
