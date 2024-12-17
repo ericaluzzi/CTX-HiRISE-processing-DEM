@@ -1,7 +1,7 @@
 =================================================================================================================
 Processing tips
 =================================================================================================================
-
+0 To download EDRs: wget -nd -r --no-parent https://hirise.......
 0 To lower memory use during stereo, consider reducing the number of processes or lowering --corr-memory-limit-mb in stereo.default. (E.g. corr-memory-limit-mb 4096)
 0 To decrease size and increase browsing speed of DEMs and ORTHO, Rio Cogeo create --profile DEFLATE input.tiff output_cog.tiff
 
